@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## Recover python packages
+
+# Python 2
+aptitude install python python-doc python-dev \
+    python-numpy python-numpy-doc python-numpy-dev \
+    python-scipy \
+    python-matplotlib python-matplotlib-doc \
+    ipython ipython-doc
+
+# Python 3
+aptitude install python3 python3-doc python3-dev \
+	python3-numpy python3-numpy-dev \
+	python3-scipy \
+	ipython3
+
+# Matplotlib for python3 needs to be installed from source in Ubuntu 12.04
+
+# IDE
+aptitude install spyder
