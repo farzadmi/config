@@ -1,0 +1,11 @@
+######################################
+### Config repository ignore rules ###
+######################################
+
+# First exclude all files
+*
+
+# Then re-include hidden files
+!/.gitignore
+!/.*
+!/.*/**
