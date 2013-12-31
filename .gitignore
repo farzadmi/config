@@ -9,3 +9,6 @@
 !/.gitignore
 !/.*
 !/.*/**
+
+# But still ignore temprary files
+*~

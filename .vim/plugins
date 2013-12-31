@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Fugitive is a GIT integration tool
+git submodule add https://github.com/tpope/vim-fugitive.git bundle/fugitive
+git submodule add https://github.com/tpope/vim-git.git bundle/git
+
+# Add snippets to VIM
+git submodule add https://github.com/msanders/snipmate.vim.git bundle/snipmate
+
+# Quick add parenthesis, quotes, etx around a block of text
+git submodule add https://github.com/tpope/vim-surround.git bundle/surround
+
+# Multi-language syntax checking
+git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
+
+# Enables <tab> insert completion
+git submodule add https://github.com/ervandew/supertab.git bundle/supertab
+
+# Mini-buffer explorer bar adds file "tabs" along the top
+git submodule add https://github.com/fholgado/minibufexpl.vim.git bundle/minibufexpl
+
+# File explorer
+git submodule add https://github.com/wincent/Command-T.git bundle/command-t
+
+# A tool similar to grep that a blog recommended: Requires ack to be installed to run
+# git submodule add https://github.com/mileszs/ack.vim.git bundle/ack
+
+# A visual undo tree
+git submodule add https://github.com/sjl/gundo.vim.git bundle/gundo
+
+# A make utility
+git submodule add https://github.com/reinh/vim-makegreen.git bundle/makegreen
+
+# Finds all FIXE, TODO, or custom tags and incorporates them into a list
+git submodule add https://github.com/vim-scripts/TaskList.vim.git bundle/tasklist
+
+# File tree viewer
+git submodule add https://github.com/scrooloose/nerdtree.git bundle/nerdtree
+
+# Quick comment of entire lines
+git submodule add https://github.com/scrooloose/nerdcommenter.git bundle/nerdcommenter
+
+# Class browser
+git submodule add https://github.com/majutsushi/tagbar.git bundle/tagbar
+
+##### Python Specific Plugins #####
+git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
+
+# Provides a python test environment without having to switch back to the command prompt
+git submodule add https://github.com/alfredodeza/pytest.vim.git bundle/py.test
+
+# Python refactoring and on-the-fly completion
+git submodule add https://github.com/sontek/rope-vim.git  bundle/ropevim
+
+##### Update all packages #####
+git submodule init
+git submodule update
+git submodule foreach git submodule init
+git submodule foreach git submodule update
