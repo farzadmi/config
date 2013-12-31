@@ -1,0 +1,10 @@
+[user]
+	name = Stephen Horst
+	email = sjhorst@jpl.nasa.gov
+	signingkey = A0697566
+[core]
+	editor = gedit
+[merge]
+	tool = meld
+[diff]
+	tool = meld

@@ -1,0 +1,117 @@
+background yes
+font 7x13
+use_xft no
+on_bottom yes
+
+update_interval 1.0
+
+total_run_times 0
+
+own_window no
+
+own_window_transparent yes
+
+double_buffer yes
+
+minimum_size 280 5
+
+draw_shades yes
+draw_outline no
+draw_borders no
+stippled_borders 8
+border_margin 4
+border_width 1
+
+default_color white
+default_shade_color black
+default_outline_color black
+
+alignment top_right
+
+maximum_width 400
+
+gap_x 12
+gap_y 12
+
+no_buffers yes
+
+uppercase no
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale no
+
+use_spacer no
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+${color #5b6dad}$nodename   linux-$kernel${alignr}${time %T}
+
+${color #5b6dad}System:
+${color #5b6dad} Uptime:${color #7f8ed3} $uptime ${color #5b6dad}- Load:${color #7f8ed3} $loadavg
+${color #5b6dad} CPU Frequency:${color #7f8ed3} $freq_g GHz
+${color #5b6dad} CPU Total:${color #7f8ed3} ${cpu cpu0}% ${cpubar cpu0}
+${color #000000}${cpugraph cpu0 32,400 000000 7f8ed3}
+${color #5b6dad} CPU 1 Usage:${color #7f8ed3} ${cpu cpu1}% ${cpubar cpu1}
+${color #5b6dad} CPU 2 Usage:${color #7f8ed3} ${cpu cpu2}% ${cpubar cpu2}
+${color #5b6dad} CPU 3 Usage:${color #7f8ed3} ${cpu cpu3}% ${cpubar cpu3}
+${color #5b6dad} CPU 4 Usage:${color #7f8ed3} ${cpu cpu4}% ${cpubar cpu4}
+${color #5b6dad} CPU 5 Usage:${color #7f8ed3} ${cpu cpu5}% ${cpubar cpu5}
+${color #5b6dad} CPU 6 Usage:${color #7f8ed3} ${cpu cpu6}% ${cpubar cpu6}
+${color #5b6dad} CPU 7 Usage:${color #7f8ed3} ${cpu cpu7}% ${cpubar cpu7}
+${color #5b6dad} CPU 8 Usage:${color #7f8ed3} ${cpu cpu8}% ${cpubar cpu8}
+${color #5b6dad} CPU 9 Usage:${color #7f8ed3} ${cpu cpu9}% ${cpubar cpu9}
+${color #5b6dad} CPU 10 Usage:${color #7f8ed3} ${cpu cpu10}% ${cpubar cpu10}
+${color #5b6dad} CPU 11 Usage:${color #7f8ed3} ${cpu cpu11}% ${cpubar cpu11}
+${color #5b6dad} CPU 12 Usage:${color #7f8ed3} ${cpu cpu12}% ${cpubar cpu12}
+
+${color #5b6dad} RAM Usage:${color #7f8ed3} $mem/$memmax - $memperc% ${membar}
+${color #5b6dad} Processes:${color #7f8ed3} $processes  ${color #5b6dad}Running:${color #7f8ed3} $running_processes 
+${color #5b6dad} Threads:${color #7f8ed3} $threads  ${color #5b6dad}Running:${color #7f8ed3} $running_threads
+
+${color #5b6dad}Networking:
+ ${color #5b6dad}Down:${color #7f8ed3} ${downspeed eth0}/s${color #5b6dad}${offset 80}Up:${color #7f8ed3} ${upspeed eth0}/s
+${color #000000}${downspeedgraph eth0 32,180 000000 7f8ed3} ${color #000000}${upspeedgraph eth0 32,180 000000 7f8ed3}
+ ${color #5b6dad}Address: ${color #7f8ed3}${addr eth0}${alignr}
+ ${color #5b6dad}TCP Connections: ${color #7f8ed3}${tcp_portmon 1 65535 count}
+
+${color #5b6dad}Network Services:
+ ${color #5b6dad}SVN Active Connections: ${color #7f8ed3}${tcp_portmon 3690 3690 count} ${color #5b6dad}Port ${color #7f8ed3}3690
+ ${color #5b6dad}Connection 1: ${color #7f8ed3}${tcp_portmon 3690 3690 rhost 0} ${tcp_portmon 3690 3690 rip 0}
+ ${color #5b6dad}Connection 2: ${color #7f8ed3}${tcp_portmon 3690 3690 rhost 1} ${tcp_portmon 3690 3690 rip 1}
+ ${color #5b6dad}Connection 3: ${color #7f8ed3}${tcp_portmon 3690 3690 rhost 2} ${tcp_portmon 3690 3690 rip 2}
+
+ ${color #5b6dad}VNC Active Connections: ${color #7f8ed3}${tcp_portmon 5900 5910 count} ${color #5b6dad}Port ${color #7f8ed3}5900
+ ${color #5b6dad}Connection 1: ${color #7f8ed3}${tcp_portmon 5900 5999 rhost 0} ${tcp_portmon 5900 5999 rip 0}
+ ${color #5b6dad}Connection 2: ${color #7f8ed3}${tcp_portmon 5900 5999 rhost 1} ${tcp_portmon 5900 5999 rip 1}
+ ${color #5b6dad}Connection 3: ${color #7f8ed3}${tcp_portmon 5900 5999 rhost 2} ${tcp_portmon 5900 5999 rip 2}
+
+ ${color #5b6dad}SSH Active Connections: ${color #7f8ed3}${tcp_portmon 22 22 count} ${color #5b6dad}Port ${color #7f8ed3}22
+ ${color #5b6dad}Connection 1: ${color #7f8ed3}${tcp_portmon 22 22 rhost 0} ${tcp_portmon 22 22 rip 0}
+ ${color #5b6dad}Connection 2: ${color #7f8ed3}${tcp_portmon 22 22 rhost 1} ${tcp_portmon 22 22 rip 1}
+ ${color #5b6dad}Connection 3: ${color #7f8ed3}${tcp_portmon 22 22 rhost 2} ${tcp_portmon 22 22 rip 2}
+
+${color #5b6dad}File Systems:
+ ${color #5b6dad}Root ${color #7f8ed3}${fs_used /}/${fs_size /} ${color #7f8ed3}${fs_bar /}
+ ${color #5b6dad}Backup ${color #7f8ed3}${fs_used /media/My Book}/${fs_size /media/My Book} ${color #7f8ed3}${fs_bar /media/My Book}
+ ${color #5b6dad}Radar PDK ${color #7f8ed3}${fs_used /mnt/radarpdk}/${fs_size /mnt/radarpdk} ${color #7f8ed3}${fs_bar /mnt/radarpdk}
+ ${color #5b6dad}DESDynI ${color #7f8ed3}${fs_used /mnt/desdyni}/${fs_size /mnt/desdyni} ${color #7f8ed3}${fs_bar /mnt/desdyni}
+ ${color #5b6dad}Swap ${color #7f8ed3} $swap/$swapmax - $swapperc% ${swapbar}
+
+${color #5b6dad}Name              PID     CPU%   MEM%
+${color #7f8ed3} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color #7f8ed3} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color #7f8ed3} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color #7f8ed3} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+${color #7f8ed3} ${top name 3} ${top pid 5} ${top cpu 5} ${top mem 5}
+${color #5b6dad}Mem usage
+${color #7f8ed3} ${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
+${color #7f8ed3} ${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${color #7f8ed3} ${top_mem name 3} ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
+${color #7f8ed3} ${top_mem name 4} ${top_mem pid 4} ${top_mem cpu 4} ${top_mem mem 4}
+${color #7f8ed3} ${top_mem name 5} ${top_mem pid 5} ${top_mem cpu 5} ${top_mem mem 5}
+
+${color #5b6dad}System Log Messages
+${color #7f8ed3}${execi 30 dmesg | tail -n 5}
