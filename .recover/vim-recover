@@ -1,4 +1,4 @@
 #!/bin/bash
 
 ## Recover vim packages
-aptitude install vim gvim screen ctags
+aptitude install vim gvim screen exuberant-ctags
