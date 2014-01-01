@@ -15,6 +15,8 @@ execute pathogen#helptags()
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+set hidden       " Keep buffers open when opening a new file
+
 set nobackup		" do not keep a backup file, use versions instead
 set noswapfile          " Don't use swap space
 set history=50		" keep 50 lines of command line history
@@ -24,6 +26,7 @@ set showmode            " Always show what mode we're currently editing in
 set incsearch		" do incremental searching
 set cursorline          " Underline the current line for quick orientation
 
+" Set tabbing options
 set tabstop=4
 set softtabstop=4       " When hitting <BS>, pretend like a tab is removed, even if spaces
 set shiftwidth=4
@@ -110,6 +113,6 @@ map <leader>td <Plug>TaskList
 nmap <F8> :TagbarToggle<CR>
 
 " Python Code Completion
-" au FileType python set omnifunc=pythoncomplete#Complete
-" let g:SuperTabDefaultCompletionType = "context"
-" set completeopt=menuone,longest,preview
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
