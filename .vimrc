@@ -1,10 +1,6 @@
+" Steve's .vimrc file
+" Curated since Dec 2013
 
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2011 Apr 15
-
-" When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
 endif
@@ -19,18 +15,21 @@ execute pathogen#helptags()
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
+set nobackup		" do not keep a backup file, use versions instead
+set noswapfile          " Don't use swap space
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
+set showmode            " Always show what mode we're currently editing in
 set incsearch		" do incremental searching
+set cursorline          " Underline the current line for quick orientation
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+set tabstop=4
+set softtabstop=4       " When hitting <BS>, pretend like a tab is removed, even if spaces
+set shiftwidth=4
+set shiftround
+set smarttab
+set expandtab
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -66,6 +65,9 @@ if has("autocmd")
 
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
+
+  "
+  autocmd FileType python set expandtab
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
