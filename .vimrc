@@ -12,28 +12,62 @@ set nocompatible
 execute pathogen#infect()
 execute pathogen#helptags()
 
+" Turn on filetype identification prior to using any auto commands
+if has("autocmd")
+    " Enable file type detection.
+    filetype plugin indent on
+endif
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-set hidden       " Keep buffers open when opening a new file
-
-set nobackup		" do not keep a backup file, use versions instead
-set noswapfile          " Don't use swap space
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set showmode            " Always show what mode we're currently editing in
+set history=1000	" keep 50 lines of command line history
 set incsearch		" do incremental searching
-set cursorline          " Underline the current line for quick orientation
 
+""""""""""""""""""""""""""""""
+" Save Options
+""""""""""""""""""""""""""""""
+set hidden   	    " Keep buffers open when opening a new file
+set nobackup		" do not keep a backup file, use versions instead
+set noswapfile      " Don't use swap space
+
+""""""""""""""""""""""""""""""
+" Display and Colors
+""""""""""""""""""""""""""""""
+set number          " Turn on line numbers
+set ruler			" show the cursor position all the time
+set showcmd			" display incomplete commands
+set showmode        " Always show what mode we're currently editing in
+set cursorline      " Underline the current line for quick orientation
+
+""""""""""""""""""""""""""""""
 " Set tabbing options
-set tabstop=4
-set softtabstop=4       " When hitting <BS>, pretend like a tab is removed, even if spaces
-set shiftwidth=4
-set shiftround
-set smarttab
-set expandtab
+""""""""""""""""""""""""""""""
+set tabstop=4		" Make a tab equal to 4 spaces 
+set softtabstop=4   " When hitting <BS>, pretend like a tab is removed, even if spaces
+set shiftwidth=4	" Set the number of spaces to use for auto-indenting 
+set shiftround		" Use a multiple of shiftwidth when indenting with '>' or '<'
+set smarttab		" Insert tabs at the start of a line according to shiftwidth and not tabstop 	
+set expandtab		" Insert spaces rather than tab characters
+if has("autocmd")
+    autocmd FileType python set expandtab   
+endif
 
+""""""""""""""""""""""""""""""
+" Configure wildmenu for help with : commands
+""""""""""""""""""""""""""""""
+set wildmenu
+
+""""""""""""""""""""""""""""""
+" Set up code folding
+""""""""""""""""""""""""""""""
+set foldenable
+set foldmethod=syntax
+set foldlevel=99
+
+""""""""""""""""""""""""""""""
+" Key Mappings
+""""""""""""""""""""""""""""""
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -69,9 +103,6 @@ if has("autocmd")
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
 
-  "
-  autocmd FileType python set expandtab
-
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -98,13 +129,7 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-
-" Turn on line numbers
-set number
-
 " Code Folding
-set foldmethod=indent
-set foldlevel=99
 
 " Map tasklist plugin
 map <leader>td <Plug>TaskList
