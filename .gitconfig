@@ -3,7 +3,7 @@
 	email = sjhorst@jpl.nasa.gov
 	signingkey = A0697566
 [core]
-	editor = gedit
+	editor = vim
 [merge]
 	tool = meld
 [diff]
