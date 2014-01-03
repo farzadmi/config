@@ -27,6 +27,8 @@ set history=1000	" keep 50 lines of command line history
 " Save Options
 """"""""""""""""""""""""""""""
 set hidden   	    " Keep buffers open when opening a new file
+set autowrite       " Automatically save file when hiding a buffer
+set confirm         " If you try to abondon a buffer, prompt for a save first
 set nobackup		" do not keep a backup file, use versions instead
 set noswapfile      " Don't use swap space
 
@@ -49,6 +51,7 @@ set shiftwidth=4	" Set the number of spaces to use for auto-indenting
 set shiftround		" Use a multiple of shiftwidth when indenting with '>' or '<'
 set smarttab		" Insert tabs at the start of a line according to shiftwidth and not tabstop 	
 set expandtab		" Insert spaces rather than tab characters
+set autoindent      " Automatically indent newlines to the same indentation of the previous line
 if has("autocmd")
     autocmd FileType python set expandtab   
 endif
@@ -97,6 +100,11 @@ map Q gq
 nnoremap oo o<esc>
 nnoremap OO O<esc>
 
+" Create a run binding that executes python scripts or make files
+"if has("autocmd")
+"    autocmd FileType python <leader>r :!python %
+"endif
+
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
@@ -113,14 +121,17 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" Only do this part when compiled with support for autocommands.
+""""""""""""""""""""""""""""""
+" Configurations for specific filetypes
+""""""""""""""""""""""""""""""
 if has("autocmd")
+  
+    " Python configuration
+    augroup pycmd
+        au! 
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+        autocmd FileType python setlocal nowrap
+    augroup END
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
@@ -141,10 +152,6 @@ if has("autocmd")
 
   augroup END
 
-else
-
-  set autoindent		" always set autoindenting on
-
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
@@ -154,8 +161,6 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
-
-" Code Folding
 
 " Map tasklist plugin
 map <leader>td <Plug>TaskList
