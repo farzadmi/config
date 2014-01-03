@@ -22,7 +22,6 @@ endif
 set backspace=indent,eol,start
 
 set history=1000	" keep 50 lines of command line history
-set incsearch		" do incremental searching
 
 """"""""""""""""""""""""""""""
 " Save Options
@@ -35,6 +34,7 @@ set noswapfile      " Don't use swap space
 " Display and Colors
 """"""""""""""""""""""""""""""
 set number          " Turn on line numbers
+set relativenumber	" Set line numbers relative to the cursor
 set ruler			" show the cursor position all the time
 set showcmd			" display incomplete commands
 set showmode        " Always show what mode we're currently editing in
@@ -66,10 +66,36 @@ set foldmethod=syntax
 set foldlevel=99
 
 """"""""""""""""""""""""""""""
-" Key Mappings
+" Search Customization
+""""""""""""""""""""""""""""""
+" Redo vims non-standard regex searches to be python compatible
+nnoremap / /\v
+vnoremap / /\v      
+
+set incsearch		" do incremental searching (search as you type)
+set gdefault        " Turn on g option in substitute command by default (i.e. replace all occurrances in a line)
+set ignorecase      " Do case insensitive searches by default
+set smartcase       " If an upper case character is included, searches become case sensitive
+
+" Clear highlighted searches
+nnoremap <leader><space> :noh<cr>
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch      " Highlight search occurances
+endif
+
+""""""""""""""""""""""""""""""
+" Other Key Mappings
 """"""""""""""""""""""""""""""
 " Don't use Ex mode, use Q for formatting
 map Q gq
+
+" Create an insert line command that doesn't go into --insert-- mode
+nnoremap oo o<esc>
+nnoremap OO O<esc>
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -138,6 +164,6 @@ map <leader>td <Plug>TaskList
 nmap <F8> :TagbarToggle<CR>
 
 " Python Code Completion
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
+" au FileType python set omnifunc=pythoncomplete#Complete
+" let g:SuperTabDefaultCompletionType = "context"
+" set completeopt=menuone,longest,preview
