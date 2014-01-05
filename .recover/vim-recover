@@ -1,4 +1,4 @@
 #!/bin/bash
 
 ## Recover vim packages
-aptitude install vim vim-gnome screen exuberant-ctags
+aptitude install vim vim-gnome screen exuberant-ctags ruby ruby1.8-dev

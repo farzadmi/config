@@ -166,7 +166,7 @@ endif
 map <leader>td <Plug>TaskList
 
 " Map tagbar plugin
-nmap <F8> :TagbarToggle<CR>
+nmap <F5> :TagbarToggle<CR>
 
 " Python Code Completion
 " au FileType python set omnifunc=pythoncomplete#Complete
