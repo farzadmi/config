@@ -35,12 +35,35 @@ set noswapfile      " Don't use swap space
 """"""""""""""""""""""""""""""
 " Display and Colors
 """"""""""""""""""""""""""""""
-set number          " Turn on line numbers
-set relativenumber	" Set line numbers relative to the cursor
 set ruler			" show the cursor position all the time
 set showcmd			" display incomplete commands
 set showmode        " Always show what mode we're currently editing in
 set cursorline      " Underline the current line for quick orientation
+
+""""""""""""""""""""""""""""""
+" Line number configuration
+""""""""""""""""""""""""""""""
+set relativenumber	" Default set line numbers relative to the cursor
+
+function! NumberToggle()
+    if (&relativenumber==1)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+" Map a toggle for turning off relative line numbering
+nnoremap <leader>n :call NumberToggle()<CR>
+
+" Auto switch between absolute and relative line numbers
+if has("autocmd")
+    :au FocusLost * :set number
+    :au FocusGained * :set relativenumber
+
+    autocmd InsertEnter * :set number
+    autocmd InsertLeave * :set relativenumber
+endif
 
 """"""""""""""""""""""""""""""
 " Set tabbing options
@@ -86,8 +109,8 @@ nnoremap <leader><space> :noh<cr>
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch      " Highlight search occurances
+    syntax on
+    set hlsearch      " Highlight search occurances
 endif
 
 """"""""""""""""""""""""""""""
@@ -97,13 +120,19 @@ endif
 map Q gq
 
 " Create an insert line command that doesn't go into --insert-- mode
-nnoremap oo o<esc>
+noremap oo o<esc>
 nnoremap OO O<esc>
 
+" Map tasklist plugin
+map <leader>l <Plug>TaskList
+
+" Map tagbar plugin
+nmap <F5> :TagbarToggle<CR>
+
 " Create a run binding that executes python scripts or make files
-"if has("autocmd")
-"    autocmd FileType python <leader>r :!python %
-"endif
+if has("autocmd")
+    autocmd FileType python map <leader>r :!python %<CR>
+endif
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -111,14 +140,14 @@ inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+    set mouse=a
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+    syntax on
+    set hlsearch
 endif
 
 """"""""""""""""""""""""""""""
@@ -133,24 +162,24 @@ if has("autocmd")
         autocmd FileType python setlocal nowrap
     augroup END
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+    au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+        " For all text files set 'textwidth' to 78 characters.
+        autocmd FileType text setlocal textwidth=78
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+        " When editing a file, always jump to the last known cursor position.
+        " Don't do it when the position is invalid or when inside an event handler
+        " (happens when dropping a file on gvim).
+        " Also don't do it when the mark is in the first line, that is the default
+        " position when opening a file.
+        autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
 
-  augroup END
+    augroup END
 
 endif " has("autocmd")
 
@@ -162,13 +191,9 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" Map tasklist plugin
-map <leader>td <Plug>TaskList
-
-" Map tagbar plugin
-nmap <F5> :TagbarToggle<CR>
-
 " Python Code Completion
 " au FileType python set omnifunc=pythoncomplete#Complete
 " let g:SuperTabDefaultCompletionType = "context"
 " set completeopt=menuone,longest,preview
+"
+let ropevim_vim_completion=1
