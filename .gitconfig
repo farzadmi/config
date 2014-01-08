@@ -8,3 +8,5 @@
 	tool = meld
 [diff]
 	tool = meld
+[http]
+	sslVerify = false

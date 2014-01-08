@@ -113,6 +113,7 @@ fi
 export GPGKEY=A0697566
 
 # Append my custom compilation paths
+
 PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH"
 
 # Execute ifort hooks for uavproc
