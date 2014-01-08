@@ -1,3 +1,6 @@
+# Stephen Horst's custom .bashrc file
+# I started from a default Ubuntu 12.04 bashrc and modified from there
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -106,4 +109,21 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# My GnuPG Public Key
 export GPGKEY=A0697566
+
+# Append my custom compilation paths
+PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH"
+
+# Execute ifort hooks for uavproc
+if [ -f /opt/intel/Compiler/11/bin/iccvars.sh ]; then
+    . /opt/intel/Compiler/11/bin/iccvars.sh ia64
+fi
+
+if [ -f /opt/intel/Compiler/11/bin/ifortvars.sh ]; then
+    . /opt/intel/Compiler/11/bin/ifortvars.sh ia64
+fi
+
+if [ -f /opt/intel/Compiler/11/bin/mklvars64.sh ]; then
+    . /opt/intel/Compiler/11/bin/mklvars64.sh ia64
+fi

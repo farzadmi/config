@@ -128,10 +128,13 @@ map <leader>l <Plug>TaskList
 
 " Map tagbar plugin
 nmap <F5> :TagbarToggle<CR>
+nmap <F4> :NERDTreeToggle<CR>
 
 " Create a run binding that executes python scripts or make files
 if has("autocmd")
     autocmd FileType python map <leader>r :!python %<CR>
+    autocmd FileType python map <leader>m :make<CR>
+    autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
 endif
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
