@@ -15,9 +15,6 @@ git submodule add https://github.com/tpope/vim-surround.git bundle/surround
 # Multi-language syntax checking
 git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
 
-# Enables <tab> insert completion
-git submodule add https://github.com/ervandew/supertab.git bundle/supertab
-
 # Mini-buffer explorer bar adds file "tabs" along the top
 git submodule add https://github.com/fholgado/minibufexpl.vim.git bundle/minibufexpl
 

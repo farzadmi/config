@@ -109,13 +109,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# My GnuPG Public Key
-export GPGKEY=A0697566
-
-# Append my custom compilation paths
-
-PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH"
-
 # Execute ifort hooks for uavproc
 if [ -f /opt/intel/Compiler/11/bin/iccvars.sh ]; then
     . /opt/intel/Compiler/11/bin/iccvars.sh ia64
@@ -128,3 +121,20 @@ fi
 if [ -f /opt/intel/Compiler/11/bin/mklvars64.sh ]; then
     . /opt/intel/Compiler/11/bin/mklvars64.sh ia64
 fi
+
+# My GnuPG Public Key
+export GPGKEY=A0697566
+
+# Append my custom compilation paths
+machine=`uname -n`
+if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
+    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH"
+elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
+    export PATH="$HOME/opt/bin:$PATH"
+fi
+
+# Append custom compiled documentation
+export MANPATH="$HOME/opt/share/man:$MANPATH"
+
+# Append library paths
+export LD_LIBRARY_PATH="/proj/uav/sw/external_libs/lib:$LD_LIBRARY_PATH"
