@@ -43,13 +43,13 @@ set cursorline      " Underline the current line for quick orientation
 """"""""""""""""""""""""""""""
 " Line number configuration
 """"""""""""""""""""""""""""""
-set relativenumber	" Default set line numbers relative to the cursor
+set number relativenumber	" Default set line numbers relative to the cursor
 
 function! NumberToggle()
     if (&relativenumber==1)
-        set number
+        set number norelativenumber
     else
-        set relativenumber
+        set number relativenumber
     endif
 endfunc
 
@@ -58,11 +58,11 @@ nnoremap <leader>n :call NumberToggle()<CR>
 
 " Auto switch between absolute and relative line numbers
 if has("autocmd")
-    :au FocusLost * :set number
-    :au FocusGained * :set relativenumber
+    :au FocusLost * :set number norelativenumber
+    :au FocusGained * :set number relativenumber
 
-    autocmd InsertEnter * :set number
-    autocmd InsertLeave * :set relativenumber
+    autocmd InsertEnter * :set number norelativenumber
+    autocmd InsertLeave * :set number relativenumber
 endif
 
 """"""""""""""""""""""""""""""
