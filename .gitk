@@ -25,6 +25,28 @@ set diffcontext 3
 set selectbgcolor gray85
 set extdifftool meld
 set perfile_attrs 0
+<<<<<<< HEAD
+=======
+set headbgcolor green
+set headfgcolor black
+set headoutlinecolor black
+set remotebgcolor #ffddaa
+set tagbgcolor yellow
+set tagfgcolor black
+set tagoutlinecolor black
+set reflinecolor black
+set filesepbgcolor #aaaaaa
+set filesepfgcolor black
+set linehoverbgcolor #ffff80
+set linehoverfgcolor black
+set linehoveroutlinecolor black
+set mainheadcirclecolor yellow
+set workingfilescirclecolor red
+set indexcirclecolor green
+set circlecolors {white blue gray blue blue}
+set linkfgcolor blue
+set circleoutlinecolor black
+>>>>>>> origin/master
 set geometry(main) 1176x720+0+0
 set geometry(state) normal
 set geometry(topwidth) 1176

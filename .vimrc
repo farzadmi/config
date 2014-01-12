@@ -43,11 +43,23 @@ set cursorline      " Underline the current line for quick orientation
 """"""""""""""""""""""""""""""
 " Line number configuration
 """"""""""""""""""""""""""""""
+<<<<<<< HEAD
 set number relativenumber	" Default set line numbers relative to the cursor
 
 function! NumberToggle()
     if (&relativenumber==1)
         set number norelativenumber
+=======
+if &diff
+    set number
+else
+    set relativenumber	" Default set line numbers relative to the cursor
+endif
+
+function! NumberToggle()
+    if &relativenumber == 1
+        set number
+>>>>>>> origin/master
     else
         set number relativenumber
     endif
@@ -137,6 +149,13 @@ if has("autocmd")
     autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
 endif
 
+" Create bindings for GIT in vimdiff
+if &diff
+    map <leader>dr :diffget RE<CR>
+    map <leader>dl :diffget LO<CR>
+    map <leader>db :diffget BA<CR>
+endif
+
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
@@ -163,6 +182,12 @@ if has("autocmd")
         au! 
 
         autocmd FileType python setlocal nowrap
+    augroup END
+
+    augroup jpl
+        au!
+
+        autocmd FileType rdf setlocal nowrap
     augroup END
 
     " Put these in an autocmd group, so that we can delete them easily.
