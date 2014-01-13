@@ -9,6 +9,7 @@ endif
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+source ~/.vim/bundle/pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 execute pathogen#helptags()
 

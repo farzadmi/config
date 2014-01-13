@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Pull-in pathogen plug-in tool
-git submodule add https://github.com/tpope/vim-pathogen.git autoload
+git submodule add https://github.com/tpope/vim-pathogen.git bundle/pathogen
 # Fugitive is a GIT integration tool
 git submodule add https://github.com/tpope/vim-fugitive.git bundle/fugitive
 git submodule add https://github.com/tpope/vim-git.git bundle/git
