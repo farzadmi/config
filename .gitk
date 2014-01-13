@@ -33,4 +33,5 @@ set geometry(pwsash0) "703 1"
 set geometry(pwsash1) "1005 1"
 set geometry(botwidth) 471
 set geometry(botheight) 490
-set permviews {{Global {} {--all --branches --tags --remotes} {}}}
+set permviews {{Global {} {--all --branches --tags --remotes} {}}
+}
