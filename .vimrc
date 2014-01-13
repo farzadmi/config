@@ -43,23 +43,15 @@ set cursorline      " Underline the current line for quick orientation
 """"""""""""""""""""""""""""""
 " Line number configuration
 """"""""""""""""""""""""""""""
-<<<<<<< HEAD
-set number relativenumber	" Default set line numbers relative to the cursor
-
-function! NumberToggle()
-    if (&relativenumber==1)
-        set number norelativenumber
-=======
 if &diff
-    set number
+    set number norelativenumber
 else
-    set relativenumber	" Default set line numbers relative to the cursor
+    set number relativenumber	" Default set line numbers relative to the cursor
 endif
 
 function! NumberToggle()
     if &relativenumber == 1
-        set number
->>>>>>> origin/master
+        set number norelativenumber
     else
         set number relativenumber
     endif

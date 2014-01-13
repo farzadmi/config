@@ -5,12 +5,12 @@
 [core]
 	editor = vim
 [merge]
-	tool = vimdiff
+tool = vimdiff
 	conflictstyle = diff3
 	defaulttoupstream = true
+[mergetool]
+	prompt = false
 [diff]
 	tool = vimdiff
 [http]
 	sslVerify = false
-[mergetool]
-	prompt = false
