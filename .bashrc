@@ -128,9 +128,9 @@ export GPGKEY=A0697566
 # Append my custom compilation paths
 machine=`uname -n`
 if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
-    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH"
+    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts"
 elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
-    export PATH="$HOME/opt/bin:$PATH"
+    export PATH="$HOME/opt/bin:$PATH:$HOME/scripts"
 fi
 
 # Append custom compiled documentation
@@ -138,3 +138,6 @@ export MANPATH="$HOME/opt/share/man:$MANPATH"
 
 # Append library paths
 export LD_LIBRARY_PATH="/proj/uav/sw/external_libs/lib:$LD_LIBRARY_PATH"
+
+# My custom aliases
+alias ml='matlab -nosplash -nodesktop'

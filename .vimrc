@@ -140,6 +140,8 @@ if has("autocmd")
     autocmd FileType python map <leader>r :!python %<CR>
     autocmd FileType python map <leader>m :make<CR>
     autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
+
+    autocmd FileType Matlab map <leader>r :!matlab -nodesktop -r %<CR>
 endif
 
 " Create bindings for GIT in vimdiff

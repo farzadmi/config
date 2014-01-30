@@ -49,3 +49,6 @@
 [submodule "bundle/ropevim"]
 	path = bundle/ropevim
 	url = https://github.com/sontek/rope-vim.git
+[submodule "bundle/plantuml"]
+	path = bundle/plantuml
+	url = https://github.com/aklt/plantuml-syntax

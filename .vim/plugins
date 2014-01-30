@@ -51,6 +51,9 @@ git submodule add https://github.com/alfredodeza/pytest.vim.git bundle/py.test
 # Python refactoring and on-the-fly completion
 git submodule add https://github.com/sontek/rope-vim.git  bundle/ropevim
 
+# PlantUML syntax highlighting and shortcuts
+git submodule add https://github.com/aklt/plantuml-syntax bundle/plantuml
+
 ##### Update all packages #####
 git submodule init
 git submodule update
