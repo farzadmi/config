@@ -158,11 +158,18 @@ inoremap <C-U> <C-G>u<C-U>
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
     set mouse=a
+    set term=xterm
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
+    " The joys of Fortran programming...
+    let fortran_free_source=1
+    " let fortran_more_precise=1
+    " let fortran_dialect="f77"
+
+    " Finally turn on highlighting features
     syntax on
     set hlsearch
 endif
@@ -177,6 +184,12 @@ if has("autocmd")
         au! 
 
         autocmd FileType python setlocal nowrap
+    augroup END
+
+    augroup fortran
+        au!
+
+        autocmd FileType fortran setlocal textwidth=96
     augroup END
 
     augroup jpl
