@@ -5,7 +5,7 @@
 [core]
 	editor = vim
 [merge]
-    tool = vimdiff
+    tool = meld
 	conflictstyle = diff3
 	defaulttoupstream = true
 [mergetool]
