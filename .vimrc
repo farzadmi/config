@@ -87,8 +87,52 @@ endif
 """"""""""""""""""""""""""""""
 " Configure the status line
 """"""""""""""""""""""""""""""
+set laststatus=2 " Always have the statusline visible
 hi statusline ctermfg=yellow 
 " Set the color of the active buffer for easier recognition
+
+"function! InsertStatuslineColor(mode)
+    "if a:mode == 'i'
+        "hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
+    "elseif a:mode == 'r'
+        "hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
+    "else
+        "hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+    "endif
+"endfunction
+
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+
+" default the statusline to green when entering Vim
+"hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+
+" Formats the statusline
+set statusline=%f                           " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%y      "filetype
+" set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+
+" Puts in the current git status
+"if count(g:pathogen_disabled, 'Fugitive') < 1   
+    "set statusline+=%{fugitive#statusline()}
+"endif
+
+" Puts in syntastic warnings
+"if count(g:pathogen_disabled, 'Syntastic') < 1  
+    "set statusline+=%#warningmsg#
+    "set statusline+=%{SyntasticStatuslineFlag()}
+    "set statusline+=%*
+"endif
+
+set statusline+=\ %=                        " align left
+set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ Col:%c                    " current column
+set statusline+=\ Buf:%n                    " Buffer number
+set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 
 """"""""""""""""""""""""""""""
 " Configure wildmenu for help with : commands
@@ -141,15 +185,6 @@ map <leader>l <Plug>TaskList
 nmap <F5> :TagbarToggle<CR>
 nmap <F4> :NERDTreeToggle<CR>
 
-" Create a run binding that executes python scripts or make files
-if has("autocmd")
-    autocmd FileType python map <leader>r :!python %<CR>
-    autocmd FileType python map <leader>m :make<CR>
-    autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
-
-    autocmd FileType matlab map <leader>r :!matlab -nodesktop -r %<CR>
-endif
-
 " Create bindings for GIT in vimdiff
 if &diff
     map <leader>dr :diffget RE<CR>
@@ -190,6 +225,16 @@ if has("autocmd")
         au! 
 
         autocmd FileType python setlocal nowrap
+        autocmd FileType python map <leader>r :!python %<CR>
+        autocmd FileType python map <leader>m :make<CR>
+        autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
+    augroup END
+
+    augroup ml
+        au!
+
+        autocmd FileType matlab setlocal nowrap
+        autocmd FileType matlab map <leader>r :!matlab -nodesktop -nosplash -r %<CR>
     augroup END
 
     augroup fortran
