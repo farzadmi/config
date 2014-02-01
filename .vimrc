@@ -85,6 +85,12 @@ if has("autocmd")
 endif
 
 """"""""""""""""""""""""""""""
+" Configure the status line
+""""""""""""""""""""""""""""""
+hi statusline ctermfg=yellow 
+" Set the color of the active buffer for easier recognition
+
+""""""""""""""""""""""""""""""
 " Configure wildmenu for help with : commands
 """"""""""""""""""""""""""""""
 set wildmenu
