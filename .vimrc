@@ -178,6 +178,9 @@ map Q gq
 noremap oo o<esc>
 nnoremap OO O<esc>
 
+" Escalate to root in order to save
+cmap w!! w !sudo tee >/dev/null %
+
 " Map tasklist plugin
 map <leader>l <Plug>TaskList
 
