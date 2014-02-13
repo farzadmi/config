@@ -128,7 +128,7 @@ export GPGKEY=A0697566
 # Append my custom compilation paths
 machine=`uname -n`
 if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
-    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts"
+    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/ADS2013_06/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts"
 elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
     export PATH="$HOME/opt/bin:$PATH:$HOME/scripts"
 fi

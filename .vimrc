@@ -45,8 +45,10 @@ set cursorline      " Underline the current line for quick orientation
 " Line number configuration
 """"""""""""""""""""""""""""""
 if &diff
+    " In diff mode (i.e. vimdiff)
     set number norelativenumber
 else
+    " Default edit mode
     set number relativenumber	" Default set line numbers relative to the cursor
 endif
 
@@ -88,24 +90,22 @@ endif
 " Configure the status line
 """"""""""""""""""""""""""""""
 set laststatus=2 " Always have the statusline visible
-hi statusline ctermfg=yellow 
-" Set the color of the active buffer for easier recognition
 
-"function! InsertStatuslineColor(mode)
-    "if a:mode == 'i'
-        "hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
-    "elseif a:mode == 'r'
-        "hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
-    "else
-        "hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
-    "endif
-"endfunction
+function! InsertStatuslineColor(mode)
+    if a:mode == 'i'
+        hi statusline guibg=Cyan ctermfg=red guifg=Black ctermbg=0
+    elseif a:mode == 'r'
+        hi statusline guibg=Purple ctermfg=Purple guifg=Black ctermbg=0
+    else
+        hi statusline guibg=DarkRed ctermfg=DarkRed guifg=Black ctermbg=0
+    endif
+endfunction
 
-"au InsertEnter * call InsertStatuslineColor(v:insertmode)
-"au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=DarkGrey ctermfg=yellow guifg=White ctermbg=black
 
 " default the statusline to green when entering Vim
-"hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+hi statusline guibg=DarkGrey ctermfg=yellow guifg=White ctermbg=black
 
 " Formats the statusline
 set statusline=%f                           " file name
