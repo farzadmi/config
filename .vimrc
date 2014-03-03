@@ -244,6 +244,14 @@ if has("autocmd")
         au!
 
         autocmd FileType fortran setlocal textwidth=96
+        autocmd FileType fortran map <leader>r :!%<CR>
+    augroup END
+
+    augroup cxx
+        au!
+
+        autocmd FileType c setlocal nowrap
+        autocmd FileType cpp setlocal nowrap
     augroup END
 
     augroup jpl
