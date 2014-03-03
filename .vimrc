@@ -188,6 +188,10 @@ map <leader>l <Plug>TaskList
 nmap <F5> :TagbarToggle<CR>
 nmap <F4> :NERDTreeToggle<CR>
 
+" Map the tab toggler to make split screens full
+nmap t% :tabedit %<CR>
+nmap td :tabclose<CR>
+
 " Create bindings for GIT in vimdiff
 if &diff
     map <leader>dr :diffget RE<CR>
