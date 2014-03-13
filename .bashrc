@@ -130,7 +130,7 @@ machine=`uname -n`
 if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
     export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/ADS2013_06/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/sausage/bin"
 elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
-    export PATH="$HOME/opt/bin:$PATH:$HOME/scripts"
+    export PATH="$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/Simulation/src"
 fi
 
 # Append custom compiled documentation
@@ -138,9 +138,13 @@ export MANPATH="$HOME/opt/share/man:$MANPATH"
 
 # Append library paths
 export LD_LIBRARY_PATH="/proj/uav/sw/external_libs/lib:$LD_LIBRARY_PATH"
-export FFTW_LIB_DIR="$HOME/opt/lib"
-export FFTW_INC_DIR="$HOME/opt/include"
+#export FFTW_LIB_DIR="$HOME/opt/lib"
+#export FFTW_INC_DIR="$HOME/opt/include"
+
+#export INT_BIN="$HOME/opt/bin"
+#export INT_SCR="$HOME/opt/share/roi_pac"
+#export PATH="$PATH:$INT_BIN:$INT_SCR"
 
 # My custom aliases
 alias ml='matlab -nosplash -nodesktop'
-
+alias back='cd $OLDPWD'
