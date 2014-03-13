@@ -122,13 +122,27 @@ if [ -f /opt/intel/Compiler/11/bin/mklvars64.sh ]; then
     . /opt/intel/Compiler/11/bin/mklvars64.sh ia64
 fi
 
+# Execute ifort hooks on local installation
+if [ -f $HOME/intel/Compiler/11/bin/mklvars64.sh ]; then
+    . $HOME/intel/Compiler/11/bin/mklvars64.sh ia64
+fi
+
+if [ -f $HOME/intel/Compiler/11/bin/iccvars.sh ]; then
+    . $HOME/intel/Compiler/11/bin/iccvars.sh ia64
+fi
+
+if [ -f $HOME/intel/Compiler/11/bin/ifortvars.sh ]; then
+    . $HOME/intel/Compiler/11/bin/ifortvars.sh ia64
+fi
+
 # My GnuPG Public Key
 export GPGKEY=A0697566
 
 # Append my custom compilation paths
 machine=`uname -n`
 if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
-    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/ADS2013_06/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/sausage/bin"
+    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/ADS2013_06/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/sausage/bin:$HOME/tools/Simulation/src"
+    export PATH="$PATH:$HOME/intel/bin"
 elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
     export PATH="$HOME/opt/bin:$PATH:$HOME/scripts"
 fi
@@ -137,7 +151,7 @@ fi
 export MANPATH="$HOME/opt/share/man:$MANPATH"
 
 # Append library paths
-export LD_LIBRARY_PATH="/proj/uav/sw/external_libs/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$HOME/opt/lib:/proj/uav/sw/external_libs/lib:$HOME/intel/lib/intel64:$LD_LIBRARY_PATH"
 export FFTW_LIB_DIR="$HOME/opt/lib"
 export FFTW_INC_DIR="$HOME/opt/include"
 
