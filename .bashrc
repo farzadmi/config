@@ -155,9 +155,9 @@ export LD_LIBRARY_PATH="$HOME/opt/lib:/proj/uav/sw/external_libs/lib:$HOME/intel
 export FFTW_LIB_DIR="$HOME/opt/lib"
 export FFTW_INC_DIR="$HOME/opt/include"
 
-#export INT_BIN="$HOME/opt/bin"
-#export INT_SCR="$HOME/opt/share/roi_pac"
-#export PATH="$PATH:$INT_BIN:$INT_SCR"
+export INT_BIN="$HOME/opt/bin"
+export INT_SCR="$HOME/opt/share/roi_pac"
+export PATH="$PATH:$INT_BIN:$INT_SCR"
 
 # My custom aliases
 alias ml='matlab -nosplash -nodesktop'

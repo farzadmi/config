@@ -45,11 +45,11 @@ git submodule add https://github.com/fs111/pydoc.vim.git bundle/pydoc
 # Provides a python test environment without having to switch back to the command prompt
 git submodule add https://github.com/alfredodeza/pytest.vim.git bundle/py.test
 
-# Python refactoring and on-the-fly completion
-git submodule add https://github.com/sontek/rope-vim.git  bundle/ropevim
-
 # PlantUML syntax highlighting and shortcuts
 git submodule add https://github.com/aklt/plantuml-syntax bundle/plantuml
+
+# JEDI for python autocompletion
+git submodule add https://github.com/davidhalter/jedi-vim.git bundle/jedi
 
 ##### Update all packages #####
 git submodule init

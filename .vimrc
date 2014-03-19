@@ -231,6 +231,9 @@ if has("autocmd")
     augroup pycmd
         au! 
 
+        " Override Jedi keymapping that conflict with my mapping
+        let g:jedi#rename_command = 0
+        " Set python options
         autocmd FileType python setlocal nowrap
         autocmd FileType python map <leader>r :!python %<CR>
         autocmd FileType python map <leader>m :make<CR>
@@ -263,6 +266,16 @@ if has("autocmd")
 
         autocmd FileType rdf setlocal nowrap
     augroup END
+
+    augroup tex
+        au!
+
+        autocmd FileType tex setlocal wrap
+        autocmd FileType tex setlocal textwidth=100
+        autocmd FileType tex setlocal spell spelllang=en_us
+    augroup END
+
+
 
     " Put these in an autocmd group, so that we can delete them easily.
     augroup vimrcEx
@@ -299,3 +312,4 @@ endif
 " set completeopt=menuone,longest,preview
 "
 let ropevim_vim_completion=1
+
