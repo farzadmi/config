@@ -78,11 +78,6 @@ ${color #000000}${downspeedgraph eth0 32,180 000000 7f8ed3} ${color #000000}${up
  ${color #5b6dad}TCP Connections: ${color #7f8ed3}${tcp_portmon 1 65535 count}
 
 ${color #5b6dad}Network Services:
- ${color #5b6dad}SVN Active Connections: ${color #7f8ed3}${tcp_portmon 3690 3690 count} ${color #5b6dad}Port ${color #7f8ed3}3690
- ${color #5b6dad}Connection 1: ${color #7f8ed3}${tcp_portmon 3690 3690 rhost 0} ${tcp_portmon 3690 3690 rip 0}
- ${color #5b6dad}Connection 2: ${color #7f8ed3}${tcp_portmon 3690 3690 rhost 1} ${tcp_portmon 3690 3690 rip 1}
- ${color #5b6dad}Connection 3: ${color #7f8ed3}${tcp_portmon 3690 3690 rhost 2} ${tcp_portmon 3690 3690 rip 2}
-
  ${color #5b6dad}VNC Active Connections: ${color #7f8ed3}${tcp_portmon 5900 5910 count} ${color #5b6dad}Port ${color #7f8ed3}5900
  ${color #5b6dad}Connection 1: ${color #7f8ed3}${tcp_portmon 5900 5999 rhost 0} ${tcp_portmon 5900 5999 rip 0}
  ${color #5b6dad}Connection 2: ${color #7f8ed3}${tcp_portmon 5900 5999 rhost 1} ${tcp_portmon 5900 5999 rip 1}
@@ -95,9 +90,9 @@ ${color #5b6dad}Network Services:
 
 ${color #5b6dad}File Systems:
  ${color #5b6dad}Root ${color #7f8ed3}${fs_used /}/${fs_size /} ${color #7f8ed3}${fs_bar /}
- ${color #5b6dad}Backup ${color #7f8ed3}${fs_used /media/My Book}/${fs_size /media/My Book} ${color #7f8ed3}${fs_bar /media/My Book}
- ${color #5b6dad}Radar PDK ${color #7f8ed3}${fs_used /mnt/radarpdk}/${fs_size /mnt/radarpdk} ${color #7f8ed3}${fs_bar /mnt/radarpdk}
- ${color #5b6dad}DESDynI ${color #7f8ed3}${fs_used /mnt/desdyni}/${fs_size /mnt/desdyni} ${color #7f8ed3}${fs_bar /mnt/desdyni}
+ ${color #5b6dad}Backup ${color #7f8ed3}${fs_used /mnt/backup}/${fs_size /mnt/backup} ${color #7f8ed3}${fs_bar /mnt/backup}
+ ${color #5b6dad}NISAR Nearspace ${color #7f8ed3}${fs_used /mnt/nearspace}/${fs_size /mnt/nearspace} ${color #7f8ed3}${fs_bar /mnt/nearspace}
+ ${color #5b6dad}Radar Data ${color #7f8ed3}${fs_used /mnt/data}/${fs_size /mnt/data} ${color #7f8ed3}${fs_bar /mnt/data}
  ${color #5b6dad}Swap ${color #7f8ed3} $swap/$swapmax - $swapperc% ${swapbar}
 
 ${color #5b6dad}Name              PID     CPU%   MEM%

@@ -136,13 +136,12 @@ if [ -f $HOME/intel/Compiler/11/bin/ifortvars.sh ]; then
 fi
 
 # My GnuPG Public Key
-export GPGKEY=A0697566
+export GPGKEY=E6D22ABA
 
 # Append my custom compilation paths
 machine=`uname -n`
 if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
-    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:/opt/ADS2013_06/bin:/opt/bin:$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/sausage/bin:$HOME/tools/Simulation/src"
-    export PATH="$PATH:$HOME/intel/bin"
+    export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2014a/bin:/opt/ADS2014_01/bin:/opt/bin:/opt/intel/bin:$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/sausage/bin:$HOME/tools/Simulation/src"
 elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
     export PATH="$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/Simulation/src"
 fi
@@ -151,9 +150,12 @@ fi
 export MANPATH="$HOME/opt/share/man:$MANPATH"
 
 # Append library paths
-export LD_LIBRARY_PATH="$HOME/opt/lib:/proj/uav/sw/external_libs/lib:$HOME/intel/lib/intel64:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$HOME/opt/lib:/proj/uav/sw/external_libs/lib:/opt/intel/lib/intel64:$LD_LIBRARY_PATH"
 export FFTW_LIB_DIR="$HOME/opt/lib"
 export FFTW_INC_DIR="$HOME/opt/include"
+
+export AGILEESOFD_LICENSE_FILE=27778@cae-lmgr1:27778@cae-lmgr2:27778@cae-lmgr3
+export HPEESOF_DIR=/opt/ADS2014_01
 
 export INT_BIN="$HOME/opt/bin"
 export INT_SCR="$HOME/opt/share/roi_pac"
@@ -162,3 +164,8 @@ export PATH="$PATH:$INT_BIN:$INT_SCR"
 # My custom aliases
 alias ml='matlab -nosplash -nodesktop'
 alias back='cd $OLDPWD'
+
+tmux attach &> /dev/null
+if [[ ! $TERM =~ screen ]]; then
+    exec tmux
+fi
