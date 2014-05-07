@@ -46,3 +46,9 @@
 [submodule ".vim/bundle/ropevim"]
 	path = .vim/bundle/ropevim
 	url = https://github.com/sontek/rope-vim.git
+[submodule ".vim/bundle/plantuml"]
+	path = .vim/bundle/plantuml
+	url = https://github.com/aklt/plantuml-syntax
+[submodule ".vim/bundle/jedi"]
+	path = .vim/bundle/jedi
+	url = https://github.com/davidhalter/jedi-vim.git

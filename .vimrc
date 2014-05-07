@@ -91,22 +91,6 @@ endif
 """"""""""""""""""""""""""""""
 set laststatus=2 " Always have the statusline visible
 
-function! InsertStatuslineColor(mode)
-    if a:mode == 'i'
-        hi statusline guibg=Cyan ctermfg=red guifg=Black ctermbg=0
-    elseif a:mode == 'r'
-        hi statusline guibg=Purple ctermfg=Purple guifg=Black ctermbg=0
-    else
-        hi statusline guibg=DarkRed ctermfg=DarkRed guifg=Black ctermbg=0
-    endif
-endfunction
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=DarkGrey ctermfg=yellow guifg=White ctermbg=black
-
-" default the statusline to green when entering Vim
-hi statusline guibg=DarkGrey ctermfg=yellow guifg=White ctermbg=black
-
 " Formats the statusline
 set statusline=%f                           " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
@@ -115,6 +99,7 @@ set statusline+=%y      "filetype
 " set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
+
 
 " Puts in the current git status
 "if count(g:pathogen_disabled, 'Fugitive') < 1   
@@ -160,13 +145,6 @@ set smartcase       " If an upper case character is included, searches become ca
 
 " Clear highlighted searches
 nnoremap <leader><space> :noh<cr>
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-    syntax on
-    set hlsearch      " Highlight search occurances
-endif
 
 """"""""""""""""""""""""""""""
 " Other Key Mappings
@@ -251,19 +229,6 @@ if has('mouse')
     set term=xterm
 endif
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-    " The joys of Fortran programming...
-    let fortran_free_source=1
-    " let fortran_more_precise=1
-    " let fortran_dialect="f77"
-
-    " Finally turn on highlighting features
-    syntax on
-    set hlsearch
-endif
-
 """"""""""""""""""""""""""""""
 " Configurations for specific filetypes
 """"""""""""""""""""""""""""""
@@ -292,6 +257,10 @@ if has("autocmd")
     augroup fortran
         au!
 
+        " The joys of Fortran programming...
+        let fortran_free_source=1
+        " let fortran_more_precise=1
+        " let fortran_dialect="f77"
         autocmd FileType fortran setlocal textwidth=96
         autocmd FileType fortran map <leader>r :!%<CR>
     augroup END
@@ -384,6 +353,49 @@ if has("autocmd")
     augroup END
 
 endif " has("autocmd")
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+set t_Co=256        " Turn on 256 color support
+color jellybeans
+syntax on
+set hlsearch
+"if &t_Co > 2 || has('gui_running')
+    "let g:solarized_termcolors=256    "default value is 16
+    "let g:solarized_contrast="high"    "default value is normal
+    "let g:solarized_visibility="high"    "default value is normal
+    "let g:solarized_degrade=1
+    "syntax on
+
+    "if has("gui_running")
+        "set background=light
+    "else
+        "set background=dark
+    "endif
+
+    "colorscheme solarized
+    "set hlsearch      " Highlight search occurances
+"endif
+
+"function! InsertStatuslineColor(mode)
+    "if a:mode == 'i'
+        "hi statusline guibg=Cyan ctermfg=white guifg=red ctermbg=red
+    "elseif a:mode == 'r'
+        "hi statusline guibg=Purple ctermfg=white guifg=Black ctermbg=yellow
+    "else
+        "hi statusline guibg=DarkRed ctermfg=0 guifg=Black ctermbg=blue
+    "endif
+"endfunction
+
+" Set status line colors
+if has("autocmd")
+    au InsertEnter * hi statusline guibg=DarkGrey ctermfg=white guifg=White ctermbg=red
+    au InsertLeave * hi statusline guibg=DarkGrey ctermfg=0 guifg=White ctermbg=yellow
+endif
+
+" default the statusline to green when entering Vim
+hi Normal ctermbg=none
+hi statusline guibg=DarkGrey ctermfg=0 guifg=White ctermbg=yellow
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
