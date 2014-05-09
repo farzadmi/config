@@ -1,0 +1,5 @@
+#!/bin/bash
+
+java -jar $HOME/opt/lib/plantuml.jar -teps $@
+
+evince `basename "$@" .uml`.eps &

@@ -1,0 +1,41 @@
+#!/bin/bash
+# This script sets up a new latex memo automatically
+
+# Check Input Arguments
+if [ $# -gt 1 ]; then
+    echo "Usage: memo name"
+    echo "This script will automatically setup a jpl-memo LaTeX document in a new directory with the name argument."
+    exit 1
+elif [ $# -eq 0 ]; then
+    name="memo_$( date +%d%b%y )"
+else
+    name="$1_$( date +%d%b%y )"
+fi
+
+# First, make a new directory with the name argument
+if [ -d $name ]; then
+   echo "A directory already exists with the chosen name, \"$name\". Please choose another name for the memo."
+   exit 2
+fi
+mkdir $name
+
+# First copy over relevant files
+cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/jplmemo.cls ./$name/
+cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/Makefile ./$name/
+cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/jpl_logo.eps ./$name/
+cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/IEEEtran.bst ./$name/
+cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/jplmemo-bare.tex ./$name/
+
+# Move into memo directory and make a figures folder
+cd $name
+mkdir figures
+
+# Rename tex file and put the same appropriate name in the Makefile
+mv jplmemo-bare.tex $name.tex
+sed s/jplmemo-example/$name/ Makefile > tmp && mv tmp Makefile
+
+# Set up an empty bib file
+touch $name.bib
+sed s/example_refs/$name/ $name.tex > tmp && mv tmp $name.tex
+
+vim $name.tex

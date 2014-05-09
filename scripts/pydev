@@ -1,0 +1,8 @@
+#!/bin/bash
+
+tmux new-window "vim $1" 
+tmux split-window -h "top -u $(whoami)"
+tmux split-window -v ipython
+tmux resize-pane -t 1 -y 12
+tmux split-window -v
+tmux select-pane -t 0

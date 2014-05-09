@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# This script takes a keyring file (like those from a key signing party) and prompts 
+# for signatures on all of the keys. For keys with multiple UIDs it will generate the
+# appropriate individually signed keys for unique email confirmation.
+#
+# This script was inspired by PIUS written by Phil Dibkowitz, but is implemented as a 
+# simple bash script rather than a program and does not contain the fancier email hooks.
+# It is intended to be simple and straight-forward without having to specify many 
+# configuration options.
+#
+# Written by Stephen Horst <sjhorst@radixpoint.org> - 26Feb14
+
+# Check for at least 1 input argument
+if [ $# -lt 1 ]; then
+    printf "%b" "Error. Not enough input arguments.\n" >&2
+    printf "%b" "\n" >&2
+    printf "%b" "Usage: keyparty-sign <keyring file>\n" >&2
+    printf "%b" "Alternate Usage: keyparty-sign <key-id1> <key-id2> ...\n" >&2
+    printf "%b" "\n" >&2
+    printf "%b" "The keys will be signed with the key in the \$GPGKEY environment variable.\n" >&2
+    printf "%b" "\n" >&2
+    exit 1
+fi
+
+# Are we reading a keyring file or an individual key
+if [[ "${1}" == *.gpg ]]; then
+    # This is a file, pull out all of the keys
+    KIDLIST=$(gpg --no-default-keyring --keyring "$1" --list-keys | grep ^pub | cut -c 13-20)
+else
+    # The input is specified as individual keys
+    KIDLIST=$@
+fi
+
+# Loop through each key
+for key in $KIDLIST
+do
+    # Make sure the key looks valid
+    if [[ $key =~ [A-Fa-f0-9]+ ]]; then
+        # The key ID looks OK. So now loop through the UIDs
+        UIDLIST=$(gpg --fingerprint "$key" | grep ^uid)
+        echo 'Preparing to sign ' $key '...'
+        echo $UIDLIST
+    else
+        # The key ID contained invalid characters or not the right length
+        printf "%b" "Error. Invalid Key ID. Must only contain valid hex characters.\n" >&2
+        exit 2
+    fi
+done
+
+
+exit 0

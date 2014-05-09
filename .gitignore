@@ -7,9 +7,12 @@
 
 # Then re-include hidden files
 !/.gitignore
-!/scripts/**
 !/.*
 !/.*/**
+
+# Also include custom bash scripts
+!/scripts
+!/scripts/**
 
 # But still ignore temprary files
 *~
