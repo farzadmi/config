@@ -1,6 +1,6 @@
 # Steve's custom snippets for python
 
-snippet filehead
+snippet head
 	#!/usr/bin/env python3
 	"""
 	             JETPR IFORNIAINSTITUTEOFTECH  RATOR               
@@ -25,22 +25,24 @@ snippet filehead
 	before exporting such information to foreign countries or providing access to foreign persons.
 	 
 	Module Description:
-	 
+	${1:Place description here} 
 
 	CHANGELOG:
-	 
+	Created - ${2:Date} 
 
 	"""
+	${3}
 
-snippet funchead
-	"""
-	Insert function description here
+snippet def
+	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		"""${3:docstring for $1}
+		
+		Input Arguments:
+		${4: None}
 
-	Input Arguments:
+		Output Arguments:
+		${5: None}
 
-
-	Output Arguments:
-
-
-	Written by Stephen Horst (sjhorst@jpl.nasa.gov) - $today
-	"""
+		Written by Stephen Horst (sjhorst@jpl.nasa.gov) - ${6:Date}
+		"""
+		${7:pass}
