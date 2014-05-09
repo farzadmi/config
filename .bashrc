@@ -109,7 +109,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Execute ifort hooks for uavproc
+# Execute ifort hooks for uavproc, dreadnought
 if [ -f /opt/intel/Compiler/11/bin/iccvars.sh ]; then
     . /opt/intel/Compiler/11/bin/iccvars.sh ia64
 fi
@@ -120,19 +120,6 @@ fi
 
 if [ -f /opt/intel/Compiler/11/bin/mklvars64.sh ]; then
     . /opt/intel/Compiler/11/bin/mklvars64.sh ia64
-fi
-
-# Execute ifort hooks on local installation
-if [ -f $HOME/intel/Compiler/11/bin/mklvars64.sh ]; then
-    . $HOME/intel/Compiler/11/bin/mklvars64.sh ia64
-fi
-
-if [ -f $HOME/intel/Compiler/11/bin/iccvars.sh ]; then
-    . $HOME/intel/Compiler/11/bin/iccvars.sh ia64
-fi
-
-if [ -f $HOME/intel/Compiler/11/bin/ifortvars.sh ]; then
-    . $HOME/intel/Compiler/11/bin/ifortvars.sh ia64
 fi
 
 # My GnuPG Public Key

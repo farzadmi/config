@@ -18,9 +18,6 @@ git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
 # Mini-buffer explorer bar adds file "tabs" along the top
 git submodule add https://github.com/fholgado/minibufexpl.vim.git bundle/minibufexpl
 
-# A tool similar to grep that a blog recommended: Requires ack to be installed to run
-# git submodule add https://github.com/mileszs/ack.vim.git bundle/ack
-
 # A visual undo tree
 git submodule add https://github.com/sjl/gundo.vim.git bundle/gundo
 
@@ -50,6 +47,9 @@ git submodule add https://github.com/aklt/plantuml-syntax bundle/plantuml
 
 # JEDI for python autocompletion
 git submodule add https://github.com/davidhalter/jedi-vim.git bundle/jedi
+
+# Solarized Color scheme
+#git submodule add git://github.com/altercation/vim-colors-solarized.git bundle/solarized
 
 ##### Update all packages #####
 git submodule init

@@ -360,33 +360,7 @@ set t_Co=256        " Turn on 256 color support
 color jellybeans
 syntax on
 set hlsearch
-"if &t_Co > 2 || has('gui_running')
-    "let g:solarized_termcolors=256    "default value is 16
-    "let g:solarized_contrast="high"    "default value is normal
-    "let g:solarized_visibility="high"    "default value is normal
-    "let g:solarized_degrade=1
-    "syntax on
-
-    "if has("gui_running")
-        "set background=light
-    "else
-        "set background=dark
-    "endif
-
-    "colorscheme solarized
-    "set hlsearch      " Highlight search occurances
-"endif
-
-"function! InsertStatuslineColor(mode)
-    "if a:mode == 'i'
-        "hi statusline guibg=Cyan ctermfg=white guifg=red ctermbg=red
-    "elseif a:mode == 'r'
-        "hi statusline guibg=Purple ctermfg=white guifg=Black ctermbg=yellow
-    "else
-        "hi statusline guibg=DarkRed ctermfg=0 guifg=Black ctermbg=blue
-    "endif
-"endfunction
-
+"
 " Set status line colors
 if has("autocmd")
     au InsertEnter * hi statusline guibg=DarkGrey ctermfg=white guifg=White ctermbg=red
