@@ -10,5 +10,9 @@
 !/.*
 !/.*/**
 
+# Also include custom bash scripts
+!/scripts
+!/scripts/**
+
 # But still ignore temprary files
 *~

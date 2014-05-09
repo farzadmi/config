@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+    names=*.eps
+    echo "Converting all *.eps files in the current directory"
+else
+    names="$@"
+fi
+
+for pic in *.eps
+do
+  convert -density 300 "$pic" ${pic%eps}jpg
+done
+
+exit 0

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /mnt/nearspace/mradarlib.git && git fetch -q --all -p
+cd /mnt/nearspace/TRM-meas-scripts.git && git fetch -q --all -p

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Performs a backup of critical files in case of catastrophic failure
+# Written by Stephen Horst (sjhorst@jpl.nasa.gov)
+
+echo "Script last run: " > /home/sjhorst/log/daily_dreadnought_backup.log
+date >> /home/sjhorst/log/daily_dreadnought_backup.log
+
+mount UUID=d7d0aedb-54b8-495a-beb2-ede7fd8fa6ab /mnt/backup
+
+echo "\nSynchronizing files to removable drive" >> /home/sjhorst/log/daily_dreadnought_backup.log
+rsync -azv --delete /home/ /mnt/backup/ >> /home/sjhorst/log/daily_dreadnought_backup.log
+
+echo "\nFree space on /home drive:" >> /home/sjhorst/log/daily_dreadnought_backup.log 
+df -h /home >> /home/sjhorst/log/daily_dreadnought_backup.log
+
+echo "\nFree space on removable device:" >> /home/sjhorst/log/daily_dreadnought_backup.log
+df -h /mnt/backup/ >> /home/sjhorst/log/daily_dreadnought_backup.log
+
+echo "\nFree space on root drive:" >> /home/sjhorst/log/daily_dreadnought_backup.log
+df -h / >> /home/sjhorst/log/daily_dreadnought_backup.log
+
+umount /mnt/backup
+
+cat /home/sjhorst/log/daily_dreadnought_backup.log | mail -s "Daily backup log" sjhorst@jpl.nasa.gov
