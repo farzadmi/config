@@ -109,30 +109,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Execute ifort hooks for uavproc
-if [ -f /opt/intel/Compiler/11/bin/iccvars.sh ]; then
-    . /opt/intel/Compiler/11/bin/iccvars.sh ia64
-fi
-
-if [ -f /opt/intel/Compiler/11/bin/ifortvars.sh ]; then
-    . /opt/intel/Compiler/11/bin/ifortvars.sh ia64
-fi
-
-if [ -f /opt/intel/Compiler/11/bin/mklvars64.sh ]; then
-    . /opt/intel/Compiler/11/bin/mklvars64.sh ia64
-fi
-
-# Execute ifort hooks on local installation
-if [ -f $HOME/intel/Compiler/11/bin/mklvars64.sh ]; then
-    . $HOME/intel/Compiler/11/bin/mklvars64.sh ia64
-fi
-
-if [ -f $HOME/intel/Compiler/11/bin/iccvars.sh ]; then
-    . $HOME/intel/Compiler/11/bin/iccvars.sh ia64
-fi
-
-if [ -f $HOME/intel/Compiler/11/bin/ifortvars.sh ]; then
-    . $HOME/intel/Compiler/11/bin/ifortvars.sh ia64
+# Load ifort hooks. Requires a symlink to home directory
+if [ -f compilervars.sh ]; then
+    . compilervars.sh intel64
 fi
 
 # My GnuPG Public Key
@@ -144,13 +123,15 @@ if [ $machine == 'dreadnought.jpl.nasa.gov' ]; then
     export PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2014a/bin:/opt/ADS2014_01/bin:/opt/bin:/opt/intel/bin:$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/sausage/bin:$HOME/tools/Simulation/src"
 elif [ $machine == 'uavproc.jpl.nasa.gov' ]; then
     export PATH="$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/Simulation/src"
+elif [ $machine == 'mahuika.jpl.nasa.gov' ]; then
+    export PATH="$HOME/opt/bin:$PATH:$HOME/scripts:$HOME/tools/Simulation/src:/opt/intel/bin"
 fi
 
 # Append custom compiled documentation
 export MANPATH="$HOME/opt/share/man:$MANPATH"
 
 # Append library paths
-export LD_LIBRARY_PATH="$HOME/opt/lib:/proj/uav/sw/external_libs/lib:/opt/intel/lib/intel64:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$HOME/opt/lib:/opt/intel/lib/intel64:$LD_LIBRARY_PATH"
 export FFTW_LIB_DIR="$HOME/opt/lib"
 export FFTW_INC_DIR="$HOME/opt/include"
 
@@ -160,6 +141,8 @@ export HPEESOF_DIR=/opt/ADS2014_01
 export INT_BIN="$HOME/opt/bin"
 export INT_SCR="$HOME/opt/share/roi_pac"
 export PATH="$PATH:$INT_BIN:$INT_SCR"
+
+export PKG_CONFIG_PATH="$HOME/opt/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # My custom aliases
 alias ml='matlab -nosplash -nodesktop'
