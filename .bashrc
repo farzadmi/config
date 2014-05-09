@@ -114,7 +114,7 @@ if [ -f compilervars.sh ]; then
     . compilervars.sh intel64
 fi
 
- My GnuPG Public Key
+# My GnuPG Public Key
 export GPGKEY=E6D22ABA
 
 # Append my custom compilation paths
