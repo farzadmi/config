@@ -7,9 +7,13 @@ echo "Script last run: " > /home/sjhorst/log/daily_dreadnought_backup.log
 date >> /home/sjhorst/log/daily_dreadnought_backup.log
 
 mount UUID=d7d0aedb-54b8-495a-beb2-ede7fd8fa6ab /mnt/backup
+mount UUID=a73d2b77-3b8c-4dda-b9f7-c113afffccd0 /mnt/datadump
 
-echo "\nSynchronizing files to removable drive" >> /home/sjhorst/log/daily_dreadnought_backup.log
+echo "\nSynchronizing document files to removable drive" >> /home/sjhorst/log/daily_dreadnought_backup.log
 rsync -azv --delete /home/ /mnt/backup/ >> /home/sjhorst/log/daily_dreadnought_backup.log
+
+echo "\nSynchronizing radar data files to removable drive" >> /home/sjhorst/log/daily_dreadnought_backup.log
+rsync -azv --delete /mnt/data/ /mnt/datadump/ >> /home/sjhorst/log/daily_dreadnought_backup.log
 
 echo "\nFree space on /home drive:" >> /home/sjhorst/log/daily_dreadnought_backup.log 
 df -h /home >> /home/sjhorst/log/daily_dreadnought_backup.log
@@ -21,5 +25,6 @@ echo "\nFree space on root drive:" >> /home/sjhorst/log/daily_dreadnought_backup
 df -h / >> /home/sjhorst/log/daily_dreadnought_backup.log
 
 umount /mnt/backup
+umount /mnt/datadump
 
 cat /home/sjhorst/log/daily_dreadnought_backup.log | mail -s "Daily backup log" sjhorst@jpl.nasa.gov

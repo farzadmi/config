@@ -229,6 +229,12 @@ if has('mouse')
     set term=xterm
 endif
 
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+
 """"""""""""""""""""""""""""""
 " Configurations for specific filetypes
 """"""""""""""""""""""""""""""
@@ -241,7 +247,7 @@ if has("autocmd")
         " Override Jedi keymapping that conflict with my mapping
         let g:jedi#rename_command = 0
         " Set python options
-        autocmd FileType python setlocal nowrap
+        autocmd FileType python setlocal textwidth=80
         autocmd FileType python map <leader>r :!python %<CR>
         autocmd FileType python map <leader>m :make<CR>
         autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
