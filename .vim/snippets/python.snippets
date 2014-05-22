@@ -3,18 +3,18 @@
 snippet head
 	#!/usr/bin/env python3
 	"""
-				JETPR IFORNIAINSTITUTEOFTECH  RATOR               
-				OPULS NOLOGYJETPROPULSIONLABO YCALI               
-				IONLA RATORYCALIFORNIAINSTITU FORNI              
-				BORAT TEOFT             ECHNO AINST               
-				ORYCA LOGYJETPROPULSIONLABORA ITUTE               
-				LIFOR TORYC ALIFORNIAINSTITUT OFTEC               
-	NIAINSTITUTEOFTE EOFTE  CHNOLOGYJETPROP  HNOLOGYJETPROPUL    
-	CHNOLOGYJETPROPUL ULSIO                   SIONLABORATORYCAL   
-	SIONLABORATORYCAL  NLABO                    IFORNIAINSTITUTEO  
-																
-	Jet Propulsion Laboratory - California Institute of Technology 
-																	
+	               JETPR IFORNIAINSTITUTEOFTECH  RATOR               
+	               OPULS NOLOGYJETPROPULSIONLABO YCALI               
+	               IONLA RATORYCALIFORNIAINSTITU FORNI              
+	               BORAT TEOFT             ECHNO AINST               
+	               ORYCA LOGYJETPROPULSIONLABORA ITUTE               
+	               LIFOR TORYC ALIFORNIAINSTITUT OFTEC               
+	    NIAINSTITUTEOFTE EOFTE  CHNOLOGYJETPROP  HNOLOGYJETPROPUL    
+	   CHNOLOGYJETPROPUL ULSIO                   SIONLABORATORYCAL   
+	  SIONLABORATORYCAL  NLABO                    IFORNIAINSTITUTEO  
+	                                                              
+	  Jet Propulsion Laboratory - California Institute of Technology 
+
 	Copyright 2013, by the California Institute of Technology. ALL RIGHTS RESERVED.
 	United States Government sponsorship acknowledged. Any commercial use must be 
 	negotiated with the Office of Technology Transfer at the California Institute of
@@ -27,10 +27,14 @@ snippet head
 	information to foreign countries or providing access to foreign persons.
 	
 	Module Description:
+	--------------------------------------------------------------------------------	
 	${1:Place description here} 
+	--------------------------------------------------------------------------------
+
+	Written by Stephen Horst (sjhorst@jpl.nasa.gov) - ${2:Date}
 
 	CHANGELOG:
-	Created - ${2:Date} 
+	--
 
 	"""
 	${3}
@@ -40,10 +44,10 @@ snippet def
 		"""${3:docstring for $1}
 		
 		Input Arguments:
-		${4: None}
+		  ${4: None}
 
-		Output Arguments:
-		${5: None}
+		Return Value:
+		  ${5: None}
 
 		Written by Stephen Horst (sjhorst@jpl.nasa.gov) - ${6:Date}
 		"""
