@@ -1,0 +1,17 @@
+set imap_user = "sjhorst"
+set imap_pass = "!yeSusE34"
+
+#set smtp_url = "smtp://sjhorst@smtp.jpl.nasa.gov:587/"
+#set smtp_pass = "!yeSusE34"
+#set from = "sjhorst@jpl.nasa.gov"
+#set realname = "Stephen Horst"
+
+set folder = "imaps://mail.jpl.nasa.gov:993"
+set spoolfile = "+INBOX"
+set postponed = "+[JPL]/Drafts"
+
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/certificates
+
+set move = no
