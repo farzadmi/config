@@ -148,11 +148,6 @@ export PKG_CONFIG_PATH="$HOME/opt/lib/pkgconfig:$PKG_CONFIG_PATH"
 alias ml='matlab -nosplash -nodesktop'
 alias back='cd $OLDPWD'
 
-#tmux attach &> /dev/null
-#if [[ ! $TERM =~ screen ]]; then
-    #exec tmux
-#fi
-
 if [ `which tmux 2> /dev/null` -a -z "$TMUX" ]; then
     tmux -2 attach || tmux -2 new; exit
 fi
