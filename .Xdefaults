@@ -7,4 +7,4 @@ URxvt*scrollstyle: xterm
 !URxvt*font: xft:terminus:pixelsize=15
 !URxvt*boldFont: xft:terminus:bold:pixelsize=15
 URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
-URxvt*boldFont: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
+URxvt*boldFont: xft:DejaVu Sans Mono:pixelsize=12:style=bold:antialias=true:hinting=true
