@@ -235,6 +235,9 @@ else
     set ttymouse=xterm2
 end
 
+" Configure Syntastic checking, namely for python
+let g:syntastic_python_checkers = ['pylint']
+
 """"""""""""""""""""""""""""""
 " Configurations for specific filetypes
 """"""""""""""""""""""""""""""
@@ -247,7 +250,7 @@ if has("autocmd")
         " Override Jedi keymapping that conflict with my mapping
         let g:jedi#rename_command = 0
         " Set python options
-        autocmd FileType python setlocal textwidth=80
+        " autocmd FileType python setlocal textwidth=80
         autocmd FileType python map <leader>r :!python %<CR>
         autocmd FileType python map <leader>m :make<CR>
         autocmd FileType python map <leader>d :Pyclewn pdb %<CR>
