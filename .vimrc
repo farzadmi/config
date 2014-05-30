@@ -238,6 +238,9 @@ end
 " Configure Syntastic checking, namely for python
 let g:syntastic_python_checkers = ['pylint']
 
+" Don't auto-resize splits
+let g:golden_ratio_autocommand = 0
+
 """"""""""""""""""""""""""""""
 " Configurations for specific filetypes
 """"""""""""""""""""""""""""""
