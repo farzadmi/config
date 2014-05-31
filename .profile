@@ -8,17 +8,13 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+echo "Loading .profile..."
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+    if [ -f "$HOME/.bash_profile" ]; then
+	. "$HOME/.bash_profile"
     fi
 fi
 
-PATH="/opt/texlive/2013/bin/x86_64-linux:/opt/MATLAB/R2013a/bin:$PATH"
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
