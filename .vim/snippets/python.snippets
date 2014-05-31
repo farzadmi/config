@@ -1,7 +1,6 @@
 # Steve's custom snippets for python
 
 snippet head
-	#!/usr/bin/env python3
 	"""
 	               JETPR IFORNIAINSTITUTEOFTECH  RATOR               
 	               OPULS NOLOGYJETPROPULSIONLABO YCALI               
@@ -15,7 +14,7 @@ snippet head
 	                                                              
 	  Jet Propulsion Laboratory - California Institute of Technology 
 
-	Copyright 2013, by the California Institute of Technology. ALL RIGHTS RESERVED.
+	Copyright 2014, by the California Institute of Technology. ALL RIGHTS RESERVED.
 	United States Government sponsorship acknowledged. Any commercial use must be 
 	negotiated with the Office of Technology Transfer at the California Institute of
 	Technology.
@@ -52,3 +51,22 @@ snippet def
 		Written by Stephen Horst (sjhorst@jpl.nasa.gov) - ${6:Date}
 		"""
 		${7:pass}
+
+snippet pyr
+	import sys
+	# Make sure pyradarlib is properly installed
+	try:
+		from pyradarlib.reader import rdfread   
+	except ImportError:
+		print("This module depends on a working copy of pyradarlib.", file=sys.stderr)
+		print("Obtain via GIT within the JPL firewall:           git clone git@dreadnought:pyradarlib.git", file=sys.stderr)
+		print("Install by executing within the source directory: python3 setup.py install", file=sys.stderr)
+
+snippet exe
+	#!/usr/bin/env python3
+
+snippet utf
+	# -*- coding: utf-8 -*-
+
+snippet br
+	import pdb; pdb.set_trace()
