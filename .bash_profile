@@ -14,12 +14,6 @@
 
 echo "Loading .bash_profile..."
 
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    if [ `which tmux 2> /dev/null` -a -z "$TMUX" ]; then
-        tmux -2 attach || tmux -2 new; exit
-    fi
-fi
-
 # My GnuPG Public Key
 export GPGKEY=E6D22ABA
 
@@ -51,11 +45,16 @@ export PATH="$PATH:$INT_BIN:$INT_SCR"
 
 export PKG_CONFIG_PATH="$HOME/opt/lib/pkgconfig:$PKG_CONFIG_PATH"
 
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    if [ `which tmux 2> /dev/null` -a -z "$TMUX" ]; then
+        tmux -2 attach || tmux -2 new; exit
+    fi
+fi
 
 # if running bash
-#if [ -n "$BASH_VERSION" ]; then
-    ## include .bashrc if it exists
-    #if [ -f "$HOME/.bashrc" ]; then
-	#. "$HOME/.bashrc"
-    #fi
-#fi
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+    fi
+fi
