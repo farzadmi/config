@@ -1,6 +1,8 @@
 #!/bin/bash
 # This script sets up a new latex memo automatically
 
+TEMPLATE='/home/sjhorst/Documents/Templates/jpl-latex'
+
 # Check Input Arguments
 if [ $# -gt 1 ]; then
     echo "Usage: memo name"
@@ -20,11 +22,11 @@ fi
 mkdir $name
 
 # First copy over relevant files
-cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/jplmemo.cls ./$name/
-cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/Makefile ./$name/
-cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/jpl_logo.eps ./$name/
-cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/IEEEtran.bst ./$name/
-cp ~/Documents/Administration\ Forms/Templates/jpl-latex/jplmemo/jplmemo-bare.tex ./$name/
+cp $TEMPLATE/jplmemo/jplmemo.cls ./$name/
+cp $TEMPLATE/jplmemo/Makefile ./$name/
+cp $TEMPLATE/jplmemo/jpl_logo.eps ./$name/
+cp $TEMPLATE/jplmemo/IEEEtran.bst ./$name/
+cp $TEMPLATE/jplmemo/jplmemo-bare.tex ./$name/
 
 # Move into memo directory and make a figures folder
 cd $name

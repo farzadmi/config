@@ -127,9 +127,11 @@ set wildmenu
 """"""""""""""""""""""""""""""
 " Set up code folding
 """"""""""""""""""""""""""""""
-set foldenable
-set foldmethod=syntax
-set foldlevel=99
+set nofoldenable
+set foldmethod=indent
+set foldignore=
+set foldlevel=1
+set foldnestmax=2
 
 """"""""""""""""""""""""""""""
 " Search Customization
@@ -400,4 +402,10 @@ if ! has('gui_running')
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
+
+" Configure TagBar
+let g:tagbar_show_linenumbers = -1
+let g:tagbar_compact = 1
+let g:tagbar_sort = 0
+let g:tagbar_singleclick = 1
 
