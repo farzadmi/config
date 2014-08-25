@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""
+               JETPR IFORNIAINSTITUTEOFTECH  RATOR               
+               OPULS NOLOGYJETPROPULSIONLABO YCALI               
+               IONLA RATORYCALIFORNIAINSTITU FORNI              
+               BORAT TEOFT             ECHNO AINST               
+               ORYCA LOGYJETPROPULSIONLABORA ITUTE               
+               LIFOR TORYC ALIFORNIAINSTITUT OFTEC               
+    NIAINSTITUTEOFTE EOFTE  CHNOLOGYJETPROP  HNOLOGYJETPROPUL    
+   CHNOLOGYJETPROPUL ULSIO                   SIONLABORATORYCAL   
+  SIONLABORATORYCAL  NLABO                    IFORNIAINSTITUTEO  
+                                                              
+  Jet Propulsion Laboratory - California Institute of Technology 
+                                                                
+Copyright 2013, by the California Institute of Technology. ALL RIGHTS RESERVED.
+United States Government sponsorship acknowledged. Any commercial use must be 
+negotiated with the Office of Technology Transfer at the California Institute of
+Technology.
+
+This software may be subject to U.S. export control laws and regulations. By 
+accepting this document, the user agrees to comply with all applicable U.S. 
+export laws and regulations. User has the responsibility to obtain export 
+licenses, or other export authority as may be required before exporting such 
+information to foreign countries or providing access to foreign persons.
+
+Module Description:
+--------------------------------------------------------------------------------
+This script inserts null gaps into the point target simulator data to simulate
+the effect of swath gaps as they might appear in a SweepSAR system 
+--------------------------------------------------------------------------------
+
+Written by Stephen Horst (sjhorst@jpl.nasa.gov) - 13May14
+
+CHANGELOG:
+--
+
+"""
+
+import shutil
+import numpy as np
+import os
+import argparse
+import struct
+
+import sys
+# Make sure pyradarlib is properly installed
+try:
+    from pyradarlib.reader import rdfread, rscread   
+except ImportError:
+    print("This module depends on a working copy of pyradarlib.", file=sys.stderr)
+    print("Obtain via GIT within the JPL firewall:           git clone git@dreadnought:pyradarlib.git", file=sys.stderr)
+    print("Install by executing within the source directory: python3 setup.py install", file=sys.stderr)
+
+# Define input arguments
+parser = argparse.ArgumentParser(description="Insert transmit gaps into raw point target simulator data")
+parser.add_argument('config_filename', help='Path to the RDF configuration file describing the gaps to insert.')
+
+# Parse input arguments
+args = parser.parse_args()
+
+# Read configuration file
+conf = rdfread(args.config_filename)
+
+# Execute the gap insertion process
+if conf['Input Filename'] != conf['Output Filename']:
+    shutil.copyfile(conf['Input Filename'], conf['Output Filename'])
+
+# Read meta-data of the file
+meta = rscread(conf['Output Filename'] + '.rsc')
+
+header = meta['XMIN'] - 1
+Fs = meta['RANGE_SAMPLING_FREQUENCY']
+pulseWidth = meta['PULSE_LENGTH']
+PRI = 1/meta['PRF']
+bias = np.round(meta['I_BIAS'])
+roundtrip = 2*meta['STARTING_RANGE']/3e8
+pulsesInAir = np.floor(roundtrip/PRI)
+dataShift = roundtrip - pulsesInAir*PRI
+
+sz_rangeline = meta['XMAX']
+sz_data = int((sz_rangeline - header)/2)
+sz_gap = int(pulseWidth*Fs)
+sz_file = os.path.getsize(conf['Output Filename'])
+
+print('Radar Timing Parameters:')
+print('ADC Sampling Interval: {0} us'.format(1/Fs/1e-6))
+print('Radar PRI: {0} us'.format(PRI/1e-6))
+print('Receive Window Duration: {0} us'.format(sz_data/Fs/1e-6))
+print('Round Trip Time to near edge of Rx window: {0} us'.format(roundtrip/1e-6))
+print('Time between Rx window and prior pulse: {0} us'.format(dataShift/1e-6))
+
+# Insert constant PRF gap that will show up as a vertical swath down the data
+rangelineStart = np.arange(header, sz_file, sz_rangeline)
+gapStart = rangelineStart + 2*conf['Starting Pixel']
+
+if conf['Gap Type'].lower() == 'random':
+    # Modify Offsets for random distribution
+    delta = np.random.uniform(conf['PRI Min Delta'], conf['PRI Max Delta'], len(gapStart))
+    offsets = np.round(delta*Fs)
+    gapStart = gapStart + offsets
+    #gapStart = gapStart.astype(int)
+
+elif conf['Gap Type'].lower() == 'ramp':
+    # Modify offsets for a ramp type
+    # Compute ramp values in terms of samples
+    pulses = np.round(conf['PRI Ramp Duration']/PRI)
+    delta = PRI/conf['PRI Ramp Rate']
+    sample_ramp = delta*Fs
+    # Create an array of ramp offsets to apply to gapStart
+    ramp_offsets = np.round(np.arange(0, pulses*sample_ramp, sample_ramp))
+    if conf['PRF Reset Style'].lower() == 'fold':
+        # If the ramp folds back over, do the negated slope values
+        rev_offsets = ramp_offsets[::-1]
+        ramp_offsets = np.concatenate((ramp_offsets, rev_offsets))
+    # Repeat the offset values until it matches the length of the data
+    ramp_offsets = np.tile(ramp_offsets, np.ceil(len(gapStart)/len(ramp_offsets)))[:len(gapStart)]
+    # Create the final gap ramp
+    gapStart = gapStart + ramp_offsets
+    #gapStart = gapStart.astype(int)
+
+
+with open(conf['Output Filename'], "r+b") as outfile:
+    try:
+        for (gap, rangeline) in zip(np.nditer(gapStart), np.nditer(rangelineStart)):
+            # Takes 2 0's to make a 0 byte, need 2 bytes for I and Q
+            if conf['Gap Content'].lower() == 'noise':
+                # Read the current range line
+                outfile.seek(rangeline)
+                dt = np.dtype(np.uint8)
+                rawval = np.fromfile(outfile, dtype=dt, count=2*sz_data)
+                # Compute the 1-sigma standard deviation
+                Ivar = np.std(rawval[::2])
+                Qvar = np.std(rawval[1::2])
+                # Generate a normal random sequence for the gap
+                Ival = np.random.normal(0, Ivar, sz_gap)
+                Qval = np.random.normal(0, Qvar, sz_gap)
+                # Pack the sequence for storage in the file
+                blank = np.empty(2*sz_gap)
+                blank[::2] = np.round(Ival) + bias
+                blank[1::2] = np.round(Qval) + bias
+                blank = blank.astype(np.uint8)
+                blank = blank.tostring()
+            else:
+                blank = 2*sz_gap*bytes.fromhex('%X' % bias)
+            outfile.seek(gap)
+            outfile.write(blank)
+    except:
+        import pdb; pdb.set_trace()

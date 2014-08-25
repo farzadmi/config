@@ -38,29 +38,14 @@ snippet head
 	"""
 	${3}
 
-snippet def
-	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
-		"""${3:docstring for $1}
-		
-		Input Arguments:
-		  ${4: None}
-
-		Return Value:
-		  ${5: None}
-
-		Written by Stephen Horst (sjhorst@jpl.nasa.gov) - ${6:Date}
-		"""
-		${7:pass}
-
-snippet pyr
-	import sys
+snippet prl
 	# Make sure pyradarlib is properly installed
 	try:
-		from pyradarlib.reader import rdfread   
+		import pyradarlib as prl
 	except ImportError:
-		print("This module depends on a working copy of pyradarlib.", file=sys.stderr)
-		print("Obtain via GIT within the JPL firewall:           git clone git@dreadnought:pyradarlib.git", file=sys.stderr)
-		print("Install by executing within the source directory: python3 setup.py install", file=sys.stderr)
+		print("This module depends on a working copy of pyradarlib.")
+		print("Obtain via GIT within the JPL firewall:           git clone git@dreadnought:pyradarlib.git")
+		print("Install by executing within the source directory: python3 setup.py install")
 
 snippet exe
 	#!/usr/bin/env python3

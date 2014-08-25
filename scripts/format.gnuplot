@@ -1,6 +1,6 @@
 #!/usr/bin/gnuplot
 
-set term pngcairo font "Serif,11" size 640,450
+set term png font "Serif,11" size 640,450
 set size ratio 0.618
 
 set style line 1 lc rgb '#8b1a0e' pt 1 ps 1 lt 1 lw 2 # --- red
