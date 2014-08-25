@@ -28,8 +28,12 @@ parser.add_argument('-w', '--window', dest='window', default=1024,  type=int,
         help='Optional. Specify the window size used to analyze the point target. Default is 1024 pixels.')
 parser.add_argument('-o', '--output', dest='output', default='output', 
         help='Optional. Specify the output filename that stores results. Default is output.csv')
-parser.add_argument('-c', '--cuts', dest='cuts', default=6, type=int, 
-        help='Optional. Specify the point target to generate cut plots.')
+parser.add_argument('-c', '--cuts', dest='cuts', action='store_true',
+        help='Optional. Generate point target range and azimuth cuts for each target.')
+parser.add_argument('-s', '--save', dest='save', action='store_true',
+        help='Optional. Save the ISLR bounds in a file named "ISLR_bounds" to be used on future pytang runs with the -b flag.')
+parser.add_argument('-b', '--bounds', dest='bounds', action='store_true',
+        help='Optional. Load the contents of file "ISLR_bounds" in the executing directory to load bounds for computing the ISLR mainlobe.')
 
 args = parser.parse_args()
 
@@ -44,17 +48,24 @@ if args.location is not None:
 else:
     raise NotImplementedError('Only works with target files at the moment.')
 
-rangePoints = loc[:,0]
-azPoints = loc[:, 1]
+rangePoints = loc[:,1]
+azPoints = loc[:, 0]
 delta = int(np.floor(args.window/2))
+
+if args.bounds:
+    rcbounds = np.genfromtxt('ISLR_range_bounds', delimiter=',')
+    acbounds = np.genfromtxt('ISLR_azimuth_bounds', delimiter=',')
+elif args.save:
+    rcbounds = []
+    acbounds = []
 
 rc = tgtstat()
 ac = tgtstat()
 for count, (targrange, targaz) in enumerate(zip(rangePoints, azPoints)):
-    pt = data.region((targaz-delta, targaz+delta), (targrange-delta, targrange+delta))
+    pt = data.region((targaz-2*delta, targaz+2*delta), (targrange-delta, targrange+delta))
     pk = pt.argpeak()
 
-    rangeCut = pt.rangeCut(pk[0])
+    rangeCut = pt.rangeCut(pk[0], timeref='total')
     azimuthCut = pt.azimuthCut(pk[1])
 
     print('Interpolating range cut...')
@@ -62,22 +73,31 @@ for count, (targrange, targaz) in enumerate(zip(rangePoints, azPoints)):
     print('Interpolating Azimuth Cut...')
     azimuthCut.resample(20e3)
 
-    import pdb; pdb.set_trace()
-    if args.cuts == count:
-        rangeCut.save(args.output+'_range_slice', 'csv')
-        azimuthCut.save(args.output+'_azimuth_slice', 'csv')
+    if args.cuts:
+        rangeCut.save(args.output+'_pt'+str(count)+'_rangecut', 'csv')
+        azimuthCut.save(args.output+'_pt'+str(count)+'_azimuthcut', 'csv')
+
+    if args.save:
+        rcbounds.append(rangeCut.mainlobeBounds(0) - rangeCut.argpeak())
+        acbounds.append(azimuthCut.mainlobeBounds(0) - azimuthCut.argpeak())
 
     print('Calculating Point Target Statistics for Range Cut...')
     rc.mag = np.append( rc.mag, rangeCut.peak() )
     rc.res = np.append( rc.res, rangeCut.resolution(level=3) )
-    rc.ISLR = np.append( rc.ISLR, rangeCut.ISLR() )
     rc.PSLR = np.append( rc.PSLR, rangeCut.PSLR() )
+    if args.bounds:
+        rc.ISLR = np.append( rc.ISLR, rangeCut.ISLR(tuple(rcbounds[count])) )
+    else:
+        rc.ISLR = np.append( rc.ISLR, rangeCut.ISLR() )
 
     print('Calculating Point Target Statistics for Azimuth Cut...')
     ac.mag = np.append( ac.mag, azimuthCut.peak() )
-    ac.res = np.append( ac.res, azimuthCut.resolution(level=3) )
-    ac.ISLR = np.append( ac.ISLR, azimuthCut.ISLR() )
+    ac.res = np.append( ac.res, azimuthCut.resolution(level=3, direction='azimuth') )
     ac.PSLR = np.append( ac.PSLR, azimuthCut.PSLR() )
+    if args.bounds:
+        ac.ISLR = np.append( ac.ISLR, azimuthCut.ISLR(tuple(acbounds[count])) )
+    else:
+        ac.ISLR = np.append( ac.ISLR, azimuthCut.ISLR() )
 
     print("""\
     Point Target Analysis #{0}:
@@ -94,3 +114,6 @@ for count, (targrange, targaz) in enumerate(zip(rangePoints, azPoints)):
 header = 'Magnitude (dB), Resolution (m), ISLR (dB), PSLR (dB)'
 np.savetxt(args.output+'_range_stats.csv', np.transpose((rc.mag, rc.res, rc.ISLR, rc.PSLR)), delimiter=',', header=header, newline=os.linesep)
 np.savetxt(args.output+'_azimuth_stats.csv', np.transpose((ac.mag, ac.res, ac.ISLR, ac.PSLR)), delimiter=',', header=header, newline=os.linesep)
+if args.save:
+    np.savetxt('ISLR_range_bounds', rcbounds, delimiter=',', newline=os.linesep)
+    np.savetxt('ISLR_azimuth_bounds', acbounds, delimiter=',', newline=os.linesep)

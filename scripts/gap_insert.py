@@ -147,6 +147,16 @@ elif conf['Gap Type'].lower() == 'dwell':
     delta = np.tile(delta, np.ceil(len(baseClock)/len(delta)))[:len(baseClock)]
     priClock = baseClock + delta
 
+elif conf['Gap Type'].lower() in ['random dwell', 'rdwell', 'randdwell']:
+    # Generate random jumps for each group of pulses in the air
+    randstep = np.random.uniform(conf['PRI Min Delta']*1e-6, conf['PRI Max Delta']*1e-6, np.floor(len(baseClock)/pulsesInAir))
+    delta = np.zeros(pulsesInAir)
+    for step in randstep:
+        delta = np.concatenate( (delta, step*np.ones(pulsesInAir)) )
+    delta = delta[:len(baseClock)]
+    priClock = baseClock + delta
+
+
 else:
     raise ValueError('Invalid Gap Type Selection {0}.'.format(conf['Gap Type']))
 
