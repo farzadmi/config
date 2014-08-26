@@ -1,0 +1,35 @@
+! ************ xterm configuration
+xterm*foreground:       white
+xterm*background:       #262626
+xterm*ScrollBar:        true
+xterm*saveLines:        10000
+xterm*fading:           50
+
+!xterm*faceName:         terminus
+!xterm*faceSize:         12
+!xterm*boldFaceName:         terminus:pixelsize=12
+xterm*font:            terminus-15
+
+! ************ urxvt configuration
+URxvt*background:       #262626
+URxvt*foreground:       white
+URxvt*saveLines:        10000
+URxvt*scrollBar:        true
+URxvt*scrollstyle:      xterm
+
+URxvt*fading:           50
+
+! Font Selections
+
+!URxvt*font:             xft:terminus:pixelsize=15
+!URxvt*boldFont:         xft:terminus:bold:pixelsize=15
+
+!URxvt*font:             xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true
+!URxvt*boldFont:         xft:DejaVu Sans Mono:pixelsize=14:style=bold:antialias=true:hinting=true
+
+URxvt*font:             xft:inconsolata:pixelsize=15
+URxvt*boldFont:         xft:inconsolata:bold:pixelsize=15
+
+! Fullscreen switch
+URxvt*perl-ext-common:  fullscreen
+URxvt*keysym.F11:       perl:fullscreen:switch
